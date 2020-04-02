@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app-np
+spec:
+  type: NodePort
+  ports:
+  - port: {{ .Values.webapp.containerPort }}
+    protocol: TCP
+    nodePort: {{ .Values.webappsvc.nodePort }}
+  selector:
+    app: web-app
+

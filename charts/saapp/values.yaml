@@ -1,0 +1,16 @@
+replicaCount: 2
+
+webapp:
+  containerPort: 8080
+
+webappsvc:
+    nodePort: 30088
+
+logic:
+    port: 5000
+
+frontend:
+    port: 80
+    nodePort: 30080
+
+

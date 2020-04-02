@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logic
+  labels:
+    app: logic
+spec:
+  selector:
+     matchLabels:
+       app: logic
+  replicas: {{ .Values.replicaCount }}
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: logic
+    spec:
+      containers:
+        - image: sergysa/sentiment-analysis-logic
+          imagePullPolicy: Always
+          name: logic
+          ports:
+            - containerPort: {{ .Values.logic.port }}
+

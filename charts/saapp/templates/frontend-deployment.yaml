@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment                                          
+metadata:
+  name: frontend
+spec:
+  selector:                                               
+    matchLabels:
+      app: frontend                                    
+  replicas: {{ .Values.replicaCount }}
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate                                   
+    rollingUpdate: 
+      maxUnavailable: 1                                   
+      maxSurge: 1                                         
+  template:                                               
+    metadata:
+      labels:
+        app: frontend                                  
+    spec:
+      containers:
+        - image: sergysa/sentiment-analysis-frontend
+          imagePullPolicy: Always                         
+          name: frontend
+          ports:
+            - containerPort: {{ .Values.frontend.port }}
